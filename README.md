@@ -15,7 +15,7 @@ Before building the project, make sure the following dependencies are installed:
 ## Cloning the Repository
 
 ```bash
-git clone https://github.com/YourUsername/NearestPoints.git
+git clone https://github.com/MomsJacket/NearestPoints.git
 cd NearestPoints
 ```
 ## Building the project
