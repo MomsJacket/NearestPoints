@@ -31,6 +31,7 @@ make
 
 To run the program, you need to provide a file with polyline points and the coordinates of a point:
 ./NearestPoints <filename> <x_coord> <y_coord> <z_coord>
+
 For example: ./NearestPoints ../data/example1.txt 2.0 0.5 0.5
 
 ## Runing Unit Tests
