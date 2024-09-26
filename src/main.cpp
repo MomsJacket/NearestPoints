@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
 
         /// Find and display nearest points
         auto ans = FindNearestPointsToPolyline(poly, point);
+        std::cout << "Found solutions: " << ans.size() << "\n";
         for (const auto& pair : ans){
             std::cout << "Segment " << pair.first + 1 << " : " << pair.second << "\n";
         }
