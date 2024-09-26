@@ -19,9 +19,9 @@ int main(int argc, char* argv[])
 
     try{
         /// Get coordinates of point from command line and convert to double
-        double point_x = std::stod(argv[2]);
-        double point_y = std::stod(argv[3]);
-        double point_z = std::stod(argv[4]);
+        auto point_x = std::stod(argv[2]);
+        auto point_y = std::stod(argv[3]);
+        auto point_z = std::stod(argv[4]);
 
         Point3D point(point_x, point_y, point_z);
 
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     } catch (const std::invalid_argument& e){
         std::cerr << "Invalid argument for coordinates. Please enter valid numbers.\n";
         return 3;
-        
+
     } catch (const std::out_of_range& e) {
         std::cerr << "One or more coordinates are out of range.\n";
         return 4;
