@@ -212,3 +212,75 @@ TEST(NearestPointsAlgorithmTests, Example8) {
     EXPECT_NEAR(ans[3].second.GetY(), 0.5, eps);
     EXPECT_NEAR(ans[3].second.GetZ(), 0.0, eps);
 }
+
+TEST(NearestPointsAlgorithmTests, Example9) {
+    std::vector<Point3D> points;
+    points.push_back(Point3D {1.0, 1.0, 1.0});
+
+    Point3D given_point(1.0 / 2.0, 1.0 / 2.0, 0.0);
+
+    Polyline3D poly(points);
+
+    std::vector<std::pair<size_t, Point3D>> ans = FindNearestPointsToPolyline(poly, given_point);
+
+    EXPECT_EQ(ans.size(), 0);
+}
+
+TEST(NearestPointsAlgorithmTests, Example10) {
+    std::vector<Point3D> points;
+    points.push_back(Point3D {0.0, 0.0, 1.0});
+    points.push_back(Point3D {0.0, 0.0, 11.0});
+
+    Point3D given_point(0.0, 6.0, 6.0);
+
+    Polyline3D poly(points);
+
+    std::vector<std::pair<size_t, Point3D>> ans = FindNearestPointsToPolyline(poly, given_point);
+
+    EXPECT_EQ(ans.size(), 1);
+    EXPECT_EQ(ans[0].first, 0);
+    EXPECT_NEAR(ans[0].second.GetX(), 0.0, eps);
+    EXPECT_NEAR(ans[0].second.GetY(), 0.0, eps);
+    EXPECT_NEAR(ans[0].second.GetZ(), 6.0, eps);
+}
+
+TEST(NearestPointsAlgorithmTests, Example11) {
+    std::vector<Point3D> points;
+    points.push_back(Point3D {0.0, 0.0, 0.0});
+    points.push_back(Point3D {1.0, 0.0, 0.0});
+    points.push_back(Point3D {1.0, 1.0, 0.0});
+    points.push_back(Point3D {0.0, 1.0, 0.0});
+    points.push_back(Point3D {0.0, 0.0, 0.0});
+    points.push_back(Point3D {0.0, 0.0, 1.0});
+    points.push_back(Point3D {0.0, 1.0, 1.0});
+    points.push_back(Point3D {0.0, 1.0, 0.0});
+    points.push_back(Point3D {0.0, 1.0, 1.0});
+    points.push_back(Point3D {1.0, 1.0, 1.0});
+
+    Point3D given_point(0.0, 0.5, 0.5);
+
+    Polyline3D poly(points);
+
+    std::vector<std::pair<size_t, Point3D>> ans = FindNearestPointsToPolyline(poly, given_point);
+
+    EXPECT_EQ(ans.size(), 4);
+    EXPECT_EQ(ans[0].first, 3);
+    EXPECT_NEAR(ans[0].second.GetX(), 0.0, eps);
+    EXPECT_NEAR(ans[0].second.GetY(), 0.5, eps);
+    EXPECT_NEAR(ans[0].second.GetZ(), 0.0, eps);
+
+    EXPECT_EQ(ans[1].first, 4);
+    EXPECT_NEAR(ans[1].second.GetX(), 0.0, eps);
+    EXPECT_NEAR(ans[1].second.GetY(), 0.0, eps);
+    EXPECT_NEAR(ans[1].second.GetZ(), 0.5, eps);
+
+    EXPECT_EQ(ans[2].first, 5);
+    EXPECT_NEAR(ans[2].second.GetX(), 0.0, eps);
+    EXPECT_NEAR(ans[2].second.GetY(), 0.5, eps);
+    EXPECT_NEAR(ans[2].second.GetZ(), 1.0, eps);
+
+    EXPECT_EQ(ans[3].first, 6);
+    EXPECT_NEAR(ans[3].second.GetX(), 0.0, eps);
+    EXPECT_NEAR(ans[3].second.GetY(), 1.0, eps);
+    EXPECT_NEAR(ans[3].second.GetZ(), 0.5, eps);
+}
