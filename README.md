@@ -9,8 +9,6 @@ Before building the project, make sure the following dependencies are installed:
 
 - **CMake** (version 3.10 or higher)
 - **C++ compiler** with support for C++17
-- **Git**
-- **GoogleTest** (automatically downloaded via CMake)
 
 ## Cloning the Repository
 
