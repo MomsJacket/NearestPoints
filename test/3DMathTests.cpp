@@ -19,6 +19,11 @@ TEST(LengthOfVectorTests, NonUnitVector) {
     EXPECT_NEAR(LengthOfVector(vec), 5.0, eps);
 }
 
+TEST(LengthOfVectorTests, NegativeVector) {
+    Vector3D vec(-3.0, 4.0, 0.0);
+    EXPECT_NEAR(LengthOfVector(vec), 5.0, eps);
+}
+
 
 
 TEST(DistanceBetweenPointsTests, SamePoint) {
@@ -110,6 +115,18 @@ TEST(NormalizedVectorTests, NormalizeUnitVector) {
     EXPECT_NEAR(normalized.GetZ(), 0.0, eps);
 }
 
+TEST(NormalizedVectorTests, NormalizesSmallVector) {
+    Vector3D vec(2.0 / 3.0, 0.0, 0.0);
+    Vector3D normalized = NormalizedVector(vec);
+
+    double length = LengthOfVector(normalized);
+    EXPECT_NEAR(length, 1.0, eps);
+
+    EXPECT_NEAR(normalized.GetX(), 1.0, eps);
+    EXPECT_NEAR(normalized.GetY(), 0.0, eps);
+    EXPECT_NEAR(normalized.GetZ(), 0.0, eps);
+}
+
 
 TEST(VectorMultipliedByScalarTests, MultiplyByPositiveScalar) {
     Vector3D vec(2.0, 3.0, 4.0);
@@ -141,7 +158,7 @@ TEST(VectorMultipliedByScalarTests, MultiplyByNegativeScalar) {
     EXPECT_NEAR(result.GetZ(), -6.0, eps);
 }
 
-TEST(VectorMultipliedByScalarTests, MultiplyByOneScalar) {
+TEST(VectorMultipliedByScalarTests, MultiplyByUnitScalar) {
     Vector3D vec(3.0, 4.0, 5.0);
     double scalar = 1.0;
     Vector3D result = VectorMultipliedByScalar(vec, scalar);
@@ -152,7 +169,7 @@ TEST(VectorMultipliedByScalarTests, MultiplyByOneScalar) {
 }
 
 
-TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnLine) {
+TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnSegment) {
     Segment3D seg(Point3D(0.0, 0.0, 0.0), Point3D(1.0, 1.0, 1.0));
     Point3D point(1.0, 0.0, 0.0);
     Point3D projected = PointProjectionOnLineThroughSegment(point, seg);
@@ -161,7 +178,7 @@ TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnLine) {
     EXPECT_NEAR(projected.GetZ(), 1.0 / 3.0, eps);
 }
 
-TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnSegmentEnd) {
+TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOutsideSegment1) {
     Segment3D seg(Point3D(0.0, 0.0, 0.0), Point3D(2.0, 2.0, 2.0));
     Point3D point(3.0, 3.0, 3.0);
     Point3D projected = PointProjectionOnLineThroughSegment(point, seg);
@@ -170,11 +187,20 @@ TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnSegmentEnd) {
     EXPECT_NEAR(projected.GetZ(), 3.0, eps);
 }
 
-TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOnSegmentStart) {
+TEST(PointProjectionOnLineThroughSegmentTests, ProjectionOutsideSegment2) {
     Segment3D seg(Point3D(1.0, 1.0, 1.0), Point3D(3.0, 3.0, 3.0));
     Point3D point(0.0, 0.0, 0.0);
     Point3D projected = PointProjectionOnLineThroughSegment(point, seg);
     EXPECT_NEAR(projected.GetX(), 0.0, eps); 
     EXPECT_NEAR(projected.GetY(), 0.0, eps);
     EXPECT_NEAR(projected.GetZ(), 0.0, eps);
+}
+
+TEST(PointProjectionOnLineThroughSegmentTests, PointOnSegment) {
+    Segment3D seg(Point3D(1.0, 1.0, 1.0), Point3D(3.0, 3.0, 3.0));
+    Point3D point(2.0, 2.0, 2.0);
+    Point3D projected = PointProjectionOnLineThroughSegment(point, seg);
+    EXPECT_NEAR(projected.GetX(), 2.0, eps); 
+    EXPECT_NEAR(projected.GetY(), 2.0, eps);
+    EXPECT_NEAR(projected.GetZ(), 2.0, eps);
 }

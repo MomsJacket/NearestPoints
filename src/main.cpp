@@ -1,4 +1,5 @@
 #include <fstream>
+#include <filesystem>
 #include "static/GeometryObjects.h"
 #include "static/3DMathOperations.h"
 #include "static/NearestPointsAlgorithm.h"
@@ -13,8 +14,8 @@ int main(int argc, char* argv[])
     }
 
     // Get filename from command line
-    std::string filename = "../../data/" + std::string(argv[1]);
-    
+    std::filesystem::path dataDir = std::filesystem::path("../data/") / argv[1];
+    std::string filename = dataDir.string();
     // Get coordinates of point from command line
     double point_x = std::stod(argv[2]);
     double point_y = std::stod(argv[3]);

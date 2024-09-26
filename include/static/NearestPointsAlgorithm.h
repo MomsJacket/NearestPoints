@@ -1,4 +1,5 @@
 #pragma once
+
 #include "GeometryObjects.h"
 #include "3DMathOperations.h"
 #include <vector>
